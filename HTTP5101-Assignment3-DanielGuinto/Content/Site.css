@@ -1,0 +1,78 @@
+﻿/*Styling for body*/
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #E5F0F8;
+}
+
+.jumbotron {
+    background-color: #E5F0F8;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*Styling for List Views*/
+.content-list {
+    padding: 0.5em 0;
+}
+
+.page-titles{
+    text-align: center;
+    border-bottom: 1px solid black; 
+}
+
+.search-container {
+    float: left;
+    width: 50%;
+    padding: 1.5em 1em;
+}
+
+.search-form{
+    float: right;
+
+}
+
+.list-link{
+    float: right;
+    width: 51%;
+    text-align: center;
+}
+
+.list-container {
+    display: inline-block;
+    width: 50%;
+    padding: 1em;
+}
+
+
+/*Styling for Show Views*/
+table, tr, td{
+    border-collapse: collapse;
+    border: 1px solid black;
+    padding: 1em;
+}
+
+.table-desc{
+    font-weight: bold;
+}
+
+.info-container {
+    padding: 0 3em;
+}
+
+/*Styling for Footer*/
+footer{
+    border-top: 1px solid black;
+}

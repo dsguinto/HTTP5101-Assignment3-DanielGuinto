@@ -1,0 +1,27 @@
+﻿@model HTTP5101_Assignment3_DanielGuinto.Models.Student
+@{
+    ViewBag.Title = "Show";
+}
+<link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+
+<a class="navlink" href="/Student/List">Back to Students List</a>
+
+<div class="info-container">
+    <h2>@Model.StudentFname @Model.StudentLname</h2>
+
+    <table>
+        <tr>
+            <td class="table-desc">Student ID</td>
+            <td class="table-info">@Model.StudentId</td>
+        </tr>
+        <tr>
+            <td class="table-desc">Student Number</td>
+            <td class="table-info">@Model.StudentNumber</td>
+        </tr>
+        <!--Was not able to figure out how to display dates without the time portion-->
+        <tr>
+            <td class="table-desc">Enrol Date</td>
+            <td class="table-info">@Model.EnrolDate</td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<HTTP5101_Assignment3_DanielGuinto.Models.Student>
+@{
+    ViewBag.Title = "List";
+}
+<link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+
+<h2 class="page-titles">Students List</h2>
+
+<div class="list-container">
+    @foreach (var student in Model)
+    {
+        <div class="content-list"><a href="/Student/Show/@student.StudentId">@student.StudentFname @student.StudentLname</a></div>
+    }
+</div>
+
+<div class="search-container">
+    <div class="search-form">
+        <form action="/Student/List" method="GET">
+            <input type="text" name="SearchKey">
+            <input type="submit" value="Search Student" />
+        </form>
+    </div>
+    <div class="list-link"><a class="nav-link" href="/Student/List">View Full Students List</a></div>
+</div>

@@ -1,0 +1,34 @@
+﻿@model HTTP5101_Assignment3_DanielGuinto.Models.Class
+@{
+    ViewBag.Title = "Show";
+}
+<link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+
+<a class="navlink" href="/Class/List">Back to Class List</a>
+
+<div class="info-container">
+    <h2>@Model.ClassCode : @Model.ClassName</h2>
+    <table>
+        <tr>
+            <td class="table-desc">Class ID</td>
+            <td class="table-info">@Model.ClassId</td>
+        </tr>
+        <!--Was not able to figure out how to display dates without the time portion-->
+        <tr>
+            <td class="table-desc">Start Date</td>
+            <td class="table-info">@Model.StartDate</td>
+        </tr>
+        <tr>
+            <td class="table-desc">Finish Date</td>
+            <td class="table-info">@Model.FinishDate</td>
+        </tr>
+        <tr>
+            <td class="table-desc">Instructor</td>
+            <td class="table-info">@Model.TeacherFname @Model.TeacherLname</td>
+        </tr>
+    </table>
+</div>
+
+
+
+

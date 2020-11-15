@@ -1,0 +1,35 @@
+﻿@model HTTP5101_Assignment3_DanielGuinto.Models.Teacher
+@{
+    ViewBag.Title = "Show";
+}
+<link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+
+<a class="navlink" href="/Teacher/List">Back to Teachers List</a>
+
+<div class="info-container">
+    <h2>@Model.TeacherFname @Model.TeacherLname</h2>
+
+    <table>
+        <tr>
+            <td class="table-desc">Teacher ID</td>
+            <td class="table-info">@Model.TeacherId</td>
+        </tr>
+        <tr>
+            <td class="table-desc">Employee Number</td>
+            <td class="table-info">@Model.EmployeeNumber</td>
+        </tr>
+        <!--Was not able to figure out how to display dates without the time portion-->
+        <tr>
+            <td class="table-desc">Hire Date</td>
+            <td class="table-info">@Model.HireDate</td>
+        </tr>
+        <tr>
+            <td class="table-desc">Salary</td>
+            <td class="table-info">@Model.Salary</td>
+        </tr>
+        <tr>
+            <td class="table-desc">Courses Taught</td>
+            <td class="table-info"> @Model.ClassCode - @Model.ClassName </td>
+        </tr>
+    </table>
+</div>
