@@ -95,7 +95,8 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //SQL Query
-            cmd.CommandText = "Select * from students where studentid = " + id;
+            cmd.CommandText = "Select * from students where studentid = @id";
+            cmd.Parameters.AddWithValue("@id", id);
 
 
             //Gather Query result into a variable
@@ -119,6 +120,68 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
             }
             //Return student information
             return NewStudent;
+        }
+
+
+        /// <summary>
+        /// Deletes a Student from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <example> POST: /api/StudentData/DeleteStudent/3 </example>
+        [HttpPost]
+        public void DeleteStudent(int id)
+        {
+            //Creates an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Opens connection between web server and database
+            Conn.Open();
+
+            //Establish a new command for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL Query
+            cmd.CommandText = "Delete from Students where studentid = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.Prepare();
+
+            //Executes non-select statements in MySQL
+            cmd.ExecuteNonQuery();
+
+            //Closes connection between the MySQL Database and the WebServer
+            Conn.Close();
+        }
+
+        /// <summary>
+        /// Adds a Student to the database
+        /// </summary>
+        /// <param name="NewStudent"></param>
+        [HttpPost]
+        public void AddStudent(Student NewStudent)
+        {
+            //Creates an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Opens connection between web server and database
+            Conn.Open();
+
+            //Establish a new command for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL Query
+            cmd.CommandText = "Insert into students (studentfname, studentlname, studentnumber, enroldate) values (@StudentFname, @StudentLname, @StudentNumber, CURRENT_DATE())";
+            cmd.Parameters.AddWithValue("@StudentFname", NewStudent.StudentFname);
+            cmd.Parameters.AddWithValue("@StudentLname", NewStudent.StudentLname);
+            cmd.Parameters.AddWithValue("@StudentNumber", NewStudent.StudentNumber);
+
+            cmd.Prepare();
+
+            //Executes non-select statements in MySQL
+            cmd.ExecuteNonQuery();
+
+            //Closes connection between the MySQL Database and the WebServer
+            Conn.Close();
         }
     }
 }

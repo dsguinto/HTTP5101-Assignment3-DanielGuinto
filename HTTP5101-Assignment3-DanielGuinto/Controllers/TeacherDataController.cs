@@ -67,7 +67,7 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
                 Teachers.Add(NewTeacher);
             }
 
-            //Closesconnection between the MySQL Database and the WebServer
+            //Closes connection between the MySQL Database and the WebServer
             Conn.Close();
 
             //Return final list of teacher names
@@ -96,7 +96,8 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //SQL Query
-            cmd.CommandText = "Select * from teachers inner join classes on teachers.teacherid = classes.teacherid where teachers.teacherid = " + id;
+            cmd.CommandText = "Select * from teachers left join classes on teachers.teacherid = classes.teacherid where teachers.teacherid = @id";
+            cmd.Parameters.AddWithValue("@id", id);
 
             //Gather Query result into a variable
             MySqlDataReader ResultSet = cmd.ExecuteReader();
@@ -124,13 +125,76 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
 
                 //Access the Classes DB information through the inner join
                 //Note: Unsure how to make multiple classes appear for teachers. This method only returns 1 course.
-                string ClassCode = (String)ResultSet["classcode"];
-                string ClassName = (String)ResultSet["classname"];
+                string ClassCode = Convert.ToString(ResultSet["classcode"]);
+                string ClassName = Convert.ToString(ResultSet["classname"]);
                 NewTeacher.ClassCode = ClassCode;
                 NewTeacher.ClassName = ClassName;
 
             }
             return NewTeacher;
+        }
+
+
+        /// <summary>
+        /// Deletes a teacher from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <example> POST: /api/TeacherData/DeleteTeacher/3 </example>
+        
+        [HttpPost]
+        public void DeleteTeacher(int id)
+        {
+            //Creates an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Opens connection between web server and database
+            Conn.Open();
+
+            //Establish a new command for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL Query
+            cmd.CommandText = "Delete from teachers where teacherid=@id";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Prepare();
+
+            //Executes non-select statements in MySQL
+            cmd.ExecuteNonQuery();
+
+            //Closes connection between the MySQL Database and the WebServer
+            Conn.Close();
+        }
+
+        /// <summary>
+        /// Adds a teacher to the database
+        /// </summary>
+        /// <param name="NewTeacher"></param>
+        [HttpPost]
+        public void AddTeacher(Teacher NewTeacher)
+        {
+            //Creates an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Opens connection between web server and database
+            Conn.Open();
+
+            //Establish a new command for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL Query
+            cmd.CommandText = "Insert into teachers (teacherfname, teacherlname, employeenumber, hiredate, salary) values (@TeacherFname, @TeacherLname, @EmployeeNumber, CURRENT_DATE(), @Salary)";
+            cmd.Parameters.AddWithValue("@TeacherFname", NewTeacher.TeacherFname);
+            cmd.Parameters.AddWithValue("@TeacherLname", NewTeacher.TeacherLname);
+            cmd.Parameters.AddWithValue("@EmployeeNumber", NewTeacher.EmployeeNumber);
+            cmd.Parameters.AddWithValue("@Salary", NewTeacher.Salary);
+
+            cmd.Prepare();
+
+            //Executes non-select statements in MySQL
+            cmd.ExecuteNonQuery();
+
+            //Closes connection between the MySQL Database and the WebServer
+            Conn.Close();
         }
     }
 }

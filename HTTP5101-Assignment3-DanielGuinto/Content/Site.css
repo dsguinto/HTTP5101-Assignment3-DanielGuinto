@@ -50,10 +50,24 @@ textarea {
     text-align: center;
 }
 
+.list-link:nth-child(3) {
+    margin-top: 10%;
+}
+
+
 .list-container {
     display: inline-block;
     width: 50%;
     padding: 1em;
+}
+
+.addlink {
+    color: darkcyan;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0.5em 1em;
+    font-weight: bold;
 }
 
 
@@ -72,7 +86,51 @@ table, tr, td{
     padding: 0 3em;
 }
 
+.deletelink{
+    color: red;
+    float: right;
+    background-color: white;
+    border-color: black;
+    border-radius: 5px;
+    padding: 0.5em 1em;
+    font-weight:bold;
+    margin-top: 1em;
+}
+
+    .deletelink:hover{
+        color: white;
+        background-color: red;
+        text-decoration: none;
+    }
+
+/*Styling for ConfirmDelete Views*/
+.deletebutton{
+    background-color:red;
+    color:white;
+    border-color: darkred;
+    margin: 0 auto;
+    display: block;
+}
+
+    .deletebutton:hover {
+        color: red;
+        background-color: white;
+        text-decoration: none;
+    }
+
+.warning {
+    font-weight: bolder;
+    font-size: 1.25em;
+    color: darkred;
+    text-align: center;
+}
+
+.deleteheader{
+    text-align: center;
+}
+
 /*Styling for Footer*/
 footer{
     border-top: 1px solid black;
 }
+

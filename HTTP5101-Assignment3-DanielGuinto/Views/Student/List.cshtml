@@ -7,6 +7,7 @@
 <h2 class="page-titles">Students List</h2>
 
 <div class="list-container">
+
     @foreach (var student in Model)
     {
         <div class="content-list"><a href="/Student/Show/@student.StudentId">@student.StudentFname @student.StudentLname</a></div>
@@ -20,5 +21,6 @@
             <input type="submit" value="Search Student" />
         </form>
     </div>
-    <div class="list-link"><a class="nav-link" href="/Student/List">View Full Students List</a></div>
+    <div class="list-link"> <a class="nav-link" href="/Student/List">View Full Students List</a> </div>
+    <div class="list-link"> <a class="addlink" href="/Student/Add">Add New Student</a> </div>
 </div>

@@ -94,8 +94,8 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //SQL Query
-            cmd.CommandText = "Select * from Classes inner join teachers on classes.teacherid = teachers.teacherid where classid = " + id;
-            //cmd.CommandText = "Select * from Classes where classid = " + id;
+            cmd.CommandText = "Select * from Classes left join teachers on classes.teacherid = teachers.teacherid where classid = @id";
+            cmd.Parameters.AddWithValue("@id", id);
 
             //Gather Query result into a variable
             MySqlDataReader ResultSet = cmd.ExecuteReader();
@@ -117,8 +117,8 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
                 NewClass.FinishDate = FinishDate;
 
 
-                string TeacherFname = (String)ResultSet["teacherfname"];
-                string TeacherLname = (String)ResultSet["teacherlname"];
+                string TeacherFname = Convert.ToString(ResultSet["teacherfname"]);
+                string TeacherLname = Convert.ToString(ResultSet["teacherlname"]);
 
                 NewClass.TeacherFname = TeacherFname;
                 NewClass.TeacherLname = TeacherLname;
@@ -126,6 +126,70 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
 
             //Return class information
             return NewClass;
+        }
+
+
+        /// <summary>
+        /// Deletes a Class from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <example> POST: /api/ClassData/DeleteClass/3 </example>
+        [HttpPost]
+        public void DeleteClass(int id)
+        {
+
+            //Creates an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Opens connection between web server and database
+            Conn.Open();
+
+            //Establish a new command for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL Query
+            cmd.CommandText = "Delete from Classes where classid=@id";
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.Prepare();
+
+            //Executes non-select statements in MySQL
+            cmd.ExecuteNonQuery();
+
+            //Closes connection between the MySQL Database and the WebServer
+            Conn.Close();
+        }
+
+        /// <summary>
+        /// Adds a Class to the database
+        /// </summary>
+        /// <param name="NewClass"></param>
+        [HttpPost]
+        public void AddClass(Class NewClass)
+        {
+            //Creates an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Opens connection between web server and database
+            Conn.Open();
+
+            //Establish a new command for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL Query
+            cmd.CommandText = "Insert into classes (classcode, startdate, finishdate, classname) values (@ClassCode, @StartDate, @FinishDate, @ClassName)";
+            cmd.Parameters.AddWithValue("@ClassCode", NewClass.ClassCode);
+            cmd.Parameters.AddWithValue("@StartDate", NewClass.StartDate);
+            cmd.Parameters.AddWithValue("@FinishDate", NewClass.FinishDate);
+            cmd.Parameters.AddWithValue("@ClassName", NewClass.ClassName);
+
+            cmd.Prepare();
+
+            //Executes non-select statements in MySQL
+            cmd.ExecuteNonQuery();
+
+            //Closes connection between the MySQL Database and the WebServer
+            Conn.Close();
         }
     }
 }

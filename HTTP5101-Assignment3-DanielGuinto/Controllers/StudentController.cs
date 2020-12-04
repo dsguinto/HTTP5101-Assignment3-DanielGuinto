@@ -32,5 +32,45 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
 
             return View(NewStudent);
         }
+
+        // GET: /Student/DeleteConfirm/{id}
+        public ActionResult ConfirmDelete(int id)
+        {
+            StudentDataController controller = new StudentDataController();
+            Student NewStudent = controller.FindStudent(id);
+
+            return View(NewStudent);
+        }
+
+        //POST : /Student/Delete/{id}
+        public ActionResult Delete(int id)
+        {
+            StudentDataController controller = new StudentDataController();
+            controller.DeleteStudent(id);
+            return RedirectToAction("List");
+        }
+
+
+        // GET : /Student/Add
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        //POST: /Student/Create
+        [HttpPost]
+        public ActionResult Create(string StudentFname, string StudentLname, string StudentNumber)
+        {
+
+            Student NewStudent = new Student();
+            NewStudent.StudentFname = StudentFname;
+            NewStudent.StudentLname = StudentLname;
+            NewStudent.StudentNumber = StudentNumber;
+
+            StudentDataController controller = new StudentDataController();
+            controller.AddStudent(NewStudent);
+
+            return RedirectToAction("List");
+        }
     }
 }

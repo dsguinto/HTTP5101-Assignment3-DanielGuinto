@@ -32,5 +32,46 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
 
             return View(NewClass);
         }
+
+        // GET: /Class/DeleteConfirm/{id}
+        public ActionResult ConfirmDelete(int id)
+        {
+            ClassDataController controller = new ClassDataController();
+            Class NewClass = controller.FindClass(id);
+
+            return View(NewClass);
+        }
+
+        //POST : /Class/Delete/{id}
+        public ActionResult Delete(int id)
+        {
+            ClassDataController controller = new ClassDataController();
+            controller.DeleteClass(id);
+            return RedirectToAction("List");
+        }
+
+
+        // GET : /Class/Add
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        //POST: /Class/Create
+        [HttpPost]
+        public ActionResult Create(string ClassCode, string ClassName, DateTime StartDate, DateTime FinishDate)
+        {
+
+            Class NewClass = new Class();
+            NewClass.ClassCode = ClassCode;
+            NewClass.ClassName = ClassName;
+            NewClass.StartDate = StartDate;
+            NewClass.FinishDate = FinishDate;
+
+            ClassDataController controller = new ClassDataController();
+            controller.AddClass(NewClass);
+
+            return RedirectToAction("List");
+        }
     }
 }

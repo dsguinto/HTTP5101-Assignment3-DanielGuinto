@@ -7,6 +7,7 @@
 <h2 class="page-titles">Teachers List</h2>
 
 <div class="list-container">
+
     @foreach (var teacher in Model)
     {
         <div class="content-list"> <a href="/Teacher/Show/@teacher.TeacherId">@teacher.TeacherFname @teacher.TeacherLname</a></div>
@@ -21,4 +22,5 @@
         </form>
     </div>
     <div class="list-link"><a class="nav-link" href="/Teacher/List">Back to Full Teacher List</a></div>
+    <div class="list-link"> <a class="addlink" href="/Teacher/Add">Add New Teacher</a> </div>
 </div>

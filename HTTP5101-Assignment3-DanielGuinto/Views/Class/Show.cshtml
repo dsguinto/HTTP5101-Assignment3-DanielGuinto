@@ -6,6 +6,8 @@
 
 <a class="navlink" href="/Class/List">Back to Class List</a>
 
+<a class="deletelink" href="/Class/ConfirmDelete/@Model.ClassId">Delete</a>
+
 <div class="info-container">
     <h2>@Model.ClassCode : @Model.ClassName</h2>
     <table>
@@ -16,11 +18,11 @@
         <!--Was not able to figure out how to display dates without the time portion-->
         <tr>
             <td class="table-desc">Start Date</td>
-            <td class="table-info">@Model.StartDate</td>
+            <td class="table-info">@Model.StartDate.ToString("dd-MMM-yyyy")</td>
         </tr>
         <tr>
             <td class="table-desc">Finish Date</td>
-            <td class="table-info">@Model.FinishDate</td>
+            <td class="table-info">@Model.FinishDate.ToString("dd-MMM-yyyy")</td>
         </tr>
         <tr>
             <td class="table-desc">Instructor</td>

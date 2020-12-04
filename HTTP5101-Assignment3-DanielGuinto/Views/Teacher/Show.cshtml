@@ -6,6 +6,8 @@
 
 <a class="navlink" href="/Teacher/List">Back to Teachers List</a>
 
+<a class="deletelink" href="/Teacher/ConfirmDelete/@Model.TeacherId">Delete</a>
+
 <div class="info-container">
     <h2>@Model.TeacherFname @Model.TeacherLname</h2>
 
@@ -18,10 +20,9 @@
             <td class="table-desc">Employee Number</td>
             <td class="table-info">@Model.EmployeeNumber</td>
         </tr>
-        <!--Was not able to figure out how to display dates without the time portion-->
         <tr>
             <td class="table-desc">Hire Date</td>
-            <td class="table-info">@Model.HireDate</td>
+            <td class="table-info">@Model.HireDate.ToString("dd-MMM-yyyy")</td>
         </tr>
         <tr>
             <td class="table-desc">Salary</td>
@@ -29,7 +30,7 @@
         </tr>
         <tr>
             <td class="table-desc">Courses Taught</td>
-            <td class="table-info"> @Model.ClassCode - @Model.ClassName </td>
+            <td class="table-info"> @Model.ClassCode - @Model.ClassName</td>
         </tr>
     </table>
 </div>

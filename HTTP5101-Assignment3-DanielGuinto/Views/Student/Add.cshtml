@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>New Student</h2>
+
+<form method="POST" action="/Student/Create">
+    <div>
+        <label for="StudentFname">First Name:</label>
+        <input type="text" id="StudentFname" name="StudentFname" />
+    </div>
+    <div>
+        <label for="StudentLname">Last Name:</label>
+        <input type="text" id="StudentLname" name="StudentLname" />
+    </div>
+    <div>
+        <label for="StudentNumber">Student Number (e.g.  N####):</label>
+        <input type="text" id="StudentNumber" name="StudentNumber" />
+    </div>
+    <div>
+        <input type="submit" value="Add Student" />
+        <a class="navlink" href="/Student/List">Cancel</a>
+    </div>
+</form>
