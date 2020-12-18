@@ -28,9 +28,9 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
         public ActionResult Show(int id)
         {
             ClassDataController controller = new ClassDataController();
-            Class NewClass = controller.FindClass(id);
+            Class SelectedClass = controller.FindClass(id);
 
-            return View(NewClass);
+            return View(SelectedClass);
         }
 
         // GET: /Class/DeleteConfirm/{id}
@@ -72,6 +72,33 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
             controller.AddClass(NewClass);
 
             return RedirectToAction("List");
+        }
+
+        //GET : /Class/Update
+        public ActionResult Update(int id)
+        {
+            ClassDataController controller = new ClassDataController();
+            Class SelectedClass = controller.FindClass(id);
+
+            return View(SelectedClass);
+        }
+
+        //POST : /Class/Update/{id}
+        [HttpPost]
+        public ActionResult Update(int id, string ClassCode, string ClassName, DateTime StartDate, DateTime FinishDate)
+        {
+
+            Class ClassInfo = new Class();
+            ClassInfo.ClassCode = ClassCode;
+            ClassInfo.ClassName = ClassName;
+            ClassInfo.StartDate = StartDate;
+            ClassInfo.FinishDate = FinishDate;
+
+
+            ClassDataController controller = new ClassDataController();
+            controller.UpdateClass(id, ClassInfo);
+
+            return RedirectToAction("Show/" + id);
         }
     }
 }

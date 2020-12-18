@@ -170,7 +170,7 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
         /// </summary>
         /// <param name="NewTeacher"></param>
         [HttpPost]
-        public void AddTeacher(Teacher NewTeacher)
+        public void AddTeacher([FromBody]Teacher NewTeacher)
         {
             //Creates an instance of a connection
             MySqlConnection Conn = School.AccessDatabase();
@@ -187,6 +187,39 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
             cmd.Parameters.AddWithValue("@TeacherLname", NewTeacher.TeacherLname);
             cmd.Parameters.AddWithValue("@EmployeeNumber", NewTeacher.EmployeeNumber);
             cmd.Parameters.AddWithValue("@Salary", NewTeacher.Salary);
+
+            cmd.Prepare();
+
+            //Executes non-select statements in MySQL
+            cmd.ExecuteNonQuery();
+
+            //Closes connection between the MySQL Database and the WebServer
+            Conn.Close();
+        }
+
+        /// <summary>
+        /// Updates a teacher to the database
+        /// </summary>
+        /// <param name="UpdateTeacher"></param>
+        public void UpdateTeacher (int id, [FromBody]Teacher TeacherInfo)
+        {
+            //Creates an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Opens connection between web server and database
+            Conn.Open();
+
+            //Establish a new command for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL Query
+            cmd.CommandText = "Update teachers set teacherfname=@TeacherFname, teacherlname=@TeacherLname, employeenumber=@EmployeeNumber, hiredate=@HireDate, salary=@Salary where teacherid=@TeacherId";
+            cmd.Parameters.AddWithValue("@TeacherFname", TeacherInfo.TeacherFname);
+            cmd.Parameters.AddWithValue("@TeacherLname", TeacherInfo.TeacherLname);
+            cmd.Parameters.AddWithValue("@EmployeeNumber", TeacherInfo.EmployeeNumber);
+            cmd.Parameters.AddWithValue("HireDate", TeacherInfo.HireDate);
+            cmd.Parameters.AddWithValue("@Salary", TeacherInfo.Salary);
+            cmd.Parameters.AddWithValue("@TeacherId", id);
 
             cmd.Prepare();
 

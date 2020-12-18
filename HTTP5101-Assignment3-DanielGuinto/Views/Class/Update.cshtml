@@ -1,0 +1,33 @@
+﻿@model HTTP5101_Assignment3_DanielGuinto.Models.Class
+
+@{
+    ViewBag.Title = "Update";
+}
+
+<script src="~/Scripts/classValidation.js"></script>
+
+<h2>Update Class</h2>
+
+<form method="POST" action="/Class/Update/@Model.ClassId" name="updateformclass">
+    <div>
+        <label for="ClassCode">Class Code:</label>
+        <input type="text" id="ClassCode" name="ClassCode" value="@Model.ClassCode"/>
+    </div>
+    <div>
+        <label for="ClassName">Class Name:</label>
+        <input type="text" id="ClassName" name="ClassName" value="@Model.ClassName" />
+    </div>
+    <div>
+        <label for="StartDate">Start Date:</label>
+        <input type="date" id="StartDate" name="StartDate" value="@Model.StartDate.ToString("yyyy-MM-dd")" />
+    </div>
+    <div>
+        <label for="FinishDate">Finish Date:</label>
+        <input type="date" id="FinishDate" name="FinishDate" value="@Model.FinishDate.ToString("yyyy-MM-dd")" />
+    </div>
+    <div>
+        <input type="submit" value="Update Class" />
+        <a class="navlink" href="/Class/Show/@Model.ClassId">Cancel</a>
+    </div>
+</form>
+

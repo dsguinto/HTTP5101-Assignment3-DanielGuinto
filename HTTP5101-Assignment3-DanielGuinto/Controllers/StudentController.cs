@@ -28,9 +28,9 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
         public ActionResult Show(int id)
         {
             StudentDataController controller = new StudentDataController();
-            Student NewStudent = controller.FindStudent(id);
+            Student SelectedStudent = controller.FindStudent(id);
 
-            return View(NewStudent);
+            return View(SelectedStudent);
         }
 
         // GET: /Student/DeleteConfirm/{id}
@@ -71,6 +71,33 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
             controller.AddStudent(NewStudent);
 
             return RedirectToAction("List");
+        }
+
+        //GET : /Student/Update
+        public ActionResult Update(int id)
+        {
+            StudentDataController controller = new StudentDataController();
+            Student SelectedStudent = controller.FindStudent(id);
+
+            return View(SelectedStudent);
+        }
+
+        //POST : /Student/Update/{id}
+        [HttpPost]
+        public ActionResult Update(int id, string StudentFname, string StudentLname, string StudentNumber, DateTime EnrolDate)
+        {
+
+            Student StudentInfo = new Student();
+            StudentInfo.StudentFname = StudentFname;
+            StudentInfo.StudentLname = StudentLname;
+            StudentInfo.StudentNumber = StudentNumber;
+            StudentInfo.EnrolDate = EnrolDate;
+
+            StudentDataController controller = new StudentDataController();
+            controller.UpdateStudent(id, StudentInfo);
+
+
+            return RedirectToAction("Show/" + id);
         }
     }
 }

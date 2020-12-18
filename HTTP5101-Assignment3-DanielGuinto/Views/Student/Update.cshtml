@@ -1,0 +1,35 @@
+﻿@model HTTP5101_Assignment3_DanielGuinto.Models.Student
+
+
+@{
+    ViewBag.Title = "Update";
+}
+
+<script src="~/Scripts/studentValidation.js"></script>
+
+<h2>Update Student</h2>
+
+<form method="POST" action="/Student/Update/@Model.StudentId" name="updateformstudent">
+    <div>
+        <label for="StudentFname">First Name:</label>
+        <input type="text" id="StudentFname" name="StudentFname" value="@Model.StudentFname" />
+    </div>
+    <div>
+        <label for="StudentLname">Last Name:</label>
+        <input type="text" id="StudentLname" name="StudentLname" value="@Model.StudentLname" />
+    </div>
+    <div>
+        <label for="StudentNumber">Student Number (e.g.  N####):</label>
+        <input type="text" id="StudentNumber" name="StudentNumber" value="@Model.StudentNumber" />
+    </div>
+    <div>
+        <label for="EnrolDate">Enrol Date:</label>
+        <input type="date" id="EnrolDate" name="EnrolDate" value="@Model.EnrolDate.ToString("yyyy-MM-dd")" />
+    </div>
+    <div>
+        <input type="submit" value="Update Student" />
+        <a class="navlink" href="/Student/Show/@Model.StudentId">Cancel</a>
+    </div>
+</form>
+
+

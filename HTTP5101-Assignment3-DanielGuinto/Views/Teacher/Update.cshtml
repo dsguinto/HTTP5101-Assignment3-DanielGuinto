@@ -1,0 +1,37 @@
+﻿@model HTTP5101_Assignment3_DanielGuinto.Models.Teacher
+
+@{
+    ViewBag.Title = "Update";
+}
+
+<script src="~/Scripts/teacherValidation.js"></script>
+
+<h2>Update Teacher</h2>
+
+<form method="POST" action="/Teacher/Update/@Model.TeacherId" name="updateformteacher">
+    <div>
+        <label for="TeacherFname">First Name:</label>
+        <input type="text" id="TeacherFname" name="TeacherFname" value="@Model.TeacherFname" />
+    </div>
+
+    <div>
+        <label for="TeacherLname">Last Name:</label>
+        <input type="text" id="TeacherLname" name="TeacherLname" value="@Model.TeacherLname" />
+    </div>
+    <div>
+        <label for="EmployeeNumber">Employee Number (e.g.  T###):</label>
+        <input type="text" id="EmployeeNumber" name="EmployeeNumber" value="@Model.EmployeeNumber" />
+    </div>
+    <div>
+        <label for="HireDate">Hire Date:</label>
+        <input type="date" id="HireDate" name="HireDate" value="@Model.HireDate.ToString("yyyy-MM-dd")" />
+    </div>
+    <div>
+        <label for="Salary">Salary (e.g.  ##.##):</label>
+        <input type="text" id="Salary" name="Salary" value="@Model.Salary" />
+    </div>
+    <div>
+        <input type="submit" value="Update Teacher" />
+        <a class="navlink" href="/Teacher/Show/@Model.TeacherId">Cancel</a>
+    </div>
+</form>

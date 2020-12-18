@@ -42,7 +42,7 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
             MySqlDataReader ResultSet = cmd.ExecuteReader();
 
             //Create an empty list of Students
-            List<Student> Students = new List<Student>{};
+            List<Student> Students = new List<Student> { };
 
             //Loop Through Each Row of the Result Set
             while (ResultSet.Read())
@@ -53,7 +53,7 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
                 string StudentLname = (String)ResultSet["studentlname"];
                 string StudentNumber = (String)ResultSet["studentnumber"];
                 DateTime EnrolDate = (DateTime)ResultSet["enroldate"];
-                
+
                 Student NewStudent = new Student();
                 NewStudent.StudentId = StudentId;
                 NewStudent.StudentFname = StudentFname;
@@ -158,7 +158,7 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
         /// </summary>
         /// <param name="NewStudent"></param>
         [HttpPost]
-        public void AddStudent(Student NewStudent)
+        public void AddStudent([FromBody] Student NewStudent)
         {
             //Creates an instance of a connection
             MySqlConnection Conn = School.AccessDatabase();
@@ -174,6 +174,35 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
             cmd.Parameters.AddWithValue("@StudentFname", NewStudent.StudentFname);
             cmd.Parameters.AddWithValue("@StudentLname", NewStudent.StudentLname);
             cmd.Parameters.AddWithValue("@StudentNumber", NewStudent.StudentNumber);
+
+            cmd.Prepare();
+
+            //Executes non-select statements in MySQL
+            cmd.ExecuteNonQuery();
+
+            //Closes connection between the MySQL Database and the WebServer
+            Conn.Close();
+        }
+
+        public void UpdateStudent(int id, [FromBody]Student StudentInfo)
+        {
+            //Creates an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Opens connection between web server and database
+            Conn.Open();
+
+            //Establish a new command for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+
+            //SQL Query
+            cmd.CommandText = "Update students set studentfname=@StudentFname, studentlname=@StudentLname, studentnumber=@StudentNumber, enroldate=@EnrolDate where studentid=@StudentId";
+            cmd.Parameters.AddWithValue("@StudentFname", StudentInfo.StudentFname);
+            cmd.Parameters.AddWithValue("@StudentLname", StudentInfo.StudentLname);
+            cmd.Parameters.AddWithValue("@StudentNumber", StudentInfo.StudentNumber);
+            cmd.Parameters.AddWithValue("@EnrolDate", StudentInfo.EnrolDate);
+            cmd.Parameters.AddWithValue("@StudentId", id);
 
             cmd.Prepare();
 

@@ -165,7 +165,7 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
         /// </summary>
         /// <param name="NewClass"></param>
         [HttpPost]
-        public void AddClass(Class NewClass)
+        public void AddClass([FromBody]Class NewClass)
         {
             //Creates an instance of a connection
             MySqlConnection Conn = School.AccessDatabase();
@@ -182,6 +182,35 @@ namespace HTTP5101_Assignment3_DanielGuinto.Controllers
             cmd.Parameters.AddWithValue("@StartDate", NewClass.StartDate);
             cmd.Parameters.AddWithValue("@FinishDate", NewClass.FinishDate);
             cmd.Parameters.AddWithValue("@ClassName", NewClass.ClassName);
+
+            cmd.Prepare();
+
+            //Executes non-select statements in MySQL
+            cmd.ExecuteNonQuery();
+
+            //Closes connection between the MySQL Database and the WebServer
+            Conn.Close();
+        }
+
+
+        public void UpdateClass(int id, [FromBody]Class ClassInfo)
+        {
+            //Creates an instance of a connection
+            MySqlConnection Conn = School.AccessDatabase();
+
+            //Opens connection between web server and database
+            Conn.Open();
+
+            //Establish a new command for database
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            //SQL Query
+            cmd.CommandText = "Update classes set classcode=@ClassCode, startdate=@StartDate, finishdate=@FinishDate, classname=@ClassName where classid=@ClassId";
+            cmd.Parameters.AddWithValue("@ClassCode", ClassInfo.ClassCode);
+            cmd.Parameters.AddWithValue("@StartDate", ClassInfo.StartDate);
+            cmd.Parameters.AddWithValue("@FinishDate", ClassInfo.FinishDate);
+            cmd.Parameters.AddWithValue("@ClassName", ClassInfo.ClassName);
+            cmd.Parameters.AddWithValue("@ClassId", id);
 
             cmd.Prepare();
 

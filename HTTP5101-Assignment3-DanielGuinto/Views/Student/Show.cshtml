@@ -20,10 +20,12 @@
             <td class="table-desc">Student Number</td>
             <td class="table-info">@Model.StudentNumber</td>
         </tr>
-        <!--Was not able to figure out how to display dates without the time portion-->
         <tr>
             <td class="table-desc">Enrol Date</td>
             <td class="table-info">@Model.EnrolDate.ToString("dd-MMM-yyyy")</td>
         </tr>
     </table>
+
+    <a class="updatelink" href="/Student/Update/@Model.StudentId">Update</a>
+
 </div>

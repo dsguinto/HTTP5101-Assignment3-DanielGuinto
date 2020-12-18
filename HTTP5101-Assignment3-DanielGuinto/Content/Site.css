@@ -86,6 +86,23 @@ table, tr, td{
     padding: 0 3em;
 }
 
+.updatelink {
+    display: inline-block;
+    color: blue;
+    background-color: white;
+    border-color: black;
+    border-radius: 5px;
+    padding: 0.5em 1em;
+    font-weight: bold;
+    margin-top: 1em;
+}
+    .updatelink:hover {
+        color: white;
+        background-color: blue;
+        text-decoration: none;
+    }
+
+
 .deletelink{
     color: red;
     float: right;

@@ -15,7 +15,6 @@
             <td class="table-desc">Class ID</td>
             <td class="table-info">@Model.ClassId</td>
         </tr>
-        <!--Was not able to figure out how to display dates without the time portion-->
         <tr>
             <td class="table-desc">Start Date</td>
             <td class="table-info">@Model.StartDate.ToString("dd-MMM-yyyy")</td>
@@ -29,6 +28,9 @@
             <td class="table-info">@Model.TeacherFname @Model.TeacherLname</td>
         </tr>
     </table>
+
+    <a class="updatelink" href="/Class/Update/@Model.ClassId">Update</a>
+
 </div>
 
 
